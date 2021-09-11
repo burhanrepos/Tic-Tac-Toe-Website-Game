@@ -1,0 +1,384 @@
+*, *::after, *::before{
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:rgb(0, 0, 0);
+}
+.board{
+    width: fit-content;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    /* border: 2px solid white; */
+}
+.cell{
+    width: 120px;
+    height: 120px;
+    background-color: rgb(0, 0, 0);
+    border-bottom: 7px solid blue;
+    border-right: 7px solid blue;
+    box-shadow: 1px 1px 25px yellow;
+    border-radius: 10px 10px 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.O{
+    color: blue;
+    text-shadow: 0px 0px 15px blue;
+    font-size: 5rem;
+}
+.X{
+    color: red;
+    text-shadow: 0px 0px 15px red;
+    font-size: 5rem;
+}
+.cell.x,
+.cell.o{cursor: not-allowed;}
+.cell.x:hover,
+.cell.o:hover{
+    background-color: black;
+}
+.cell:nth-child(3),
+.cell:nth-child(6),
+.cell:nth-child(9){
+    border-right: 3px solid black;
+   }
+.cell:nth-child(3),
+.cell:nth-child(6),
+.cell:nth-child(9){
+    border-radius: 0px 10px 0px 0px;
+    /* topleft topright bottomright bottomleft */
+}
+.cell:nth-child(6){
+
+    border-radius: 0px 0px 0px 0px;
+    /* topleft topright bottomright bottomleft */
+}
+.cell:nth-child(9){
+    border-radius: 0px 0px 10px 0px;
+    /* topleft topright bottomright bottomleft */
+}
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:nth-child(9){
+    border-bottom: red;
+}
+.cell:nth-child(1),
+.cell:nth-child(4),
+.cell:nth-child(7){
+    border-radius: 10px 0px 0px 0px;
+    /* topleft topright bottomright bottomleft */
+}
+.cell:nth-child(4){
+    border-radius: 0px 0px 0px 0px;
+    /* topleft topright bottomright bottomleft */
+}
+.cell:nth-child(7){
+    border-radius: 0px 0px 0px 10px;
+    /* topleft topright bottomright bottomleft */
+}
+.cell:nth-child(2),
+.cell:nth-child(5),
+.cell:nth-child(8){
+    border-radius: 0px 0px 0px 0px;
+    /* topleft topright bottomright bottomleft */
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after
+{
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 108px;
+    background-color: red ;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px red;
+}
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::before{
+    transform: rotate(45deg);
+}
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::after{
+    transform: rotate(-45deg);
+}
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after{
+    background-color:#680000 ;
+    box-shadow: unset;
+}
+.cell:hover{
+    background-color: 	#181818;
+}
+
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::before{
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: blue;
+    box-shadow: 0px 0px 15px blue;
+}
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::after{
+    content: '';
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    background-color: black;
+    border-radius: 50%;
+    box-shadow: 0px 0px 15px blue;
+}
+.board.o .cell:not(.x):not(.o):hover::before{
+    background-color: 	#0066CC;
+    box-shadow: unset;
+}
+.board.o .cell:not(.x):not(.o):hover::after{
+    background-color: 	#181818;
+    box-shadow: unset;
+}
+.winning-message{
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: rgb(0,0,0,.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: blueviolet;
+    text-shadow: 0px 0px 15px blueviolet;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 4rem;
+    cursor:auto;
+}
+.winning-message button{
+    color: rgb(0,0,0,.9);
+    text-shadow: 0px 0px 15px blueviolet;
+    background-color: blueviolet;
+    border-radius: 10px;
+    font-size: 2rem;
+    font-weight:700;
+    padding:15px 30px;
+    border: 2px solid blueviolet;
+}
+.winning-message button:hover{
+    color:blueviolet;
+    background-color: transparent;
+    cursor:pointer;
+}
+.winning-message.show{
+    display: flex;
+}
+h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5%;
+    letter-spacing: .3rem;
+    font-size: 3.5rem;
+}
+h1 span:nth-child(1){
+    color: red;
+    text-shadow:0px 0px 35px white;
+}
+h1 span:nth-child(2){
+    color: white;
+    text-shadow:0px 0px 35px pink;
+}
+h1 span:nth-child(3){
+    color: blue;
+    text-shadow:0px 0px 35px white;
+}
+@media only screen and (max-width: 600px) {
+    .main h1{
+        font-size: 2rem;
+    }
+    .cell{
+        width: 20vw;
+        height: 10vh;
+        background-color: rgb(0, 0, 0);
+        border-bottom: 7px solid blue;
+        border-right: 7px solid blue;
+        box-shadow: 1px 1px 25px yellow;
+        border-radius: 10px 10px 10px 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    .cell.x,
+    .cell.o{cursor: not-allowed;}
+    .cell.x:hover,
+    .cell.o:hover{
+        background-color: black;
+    }
+    .cell:nth-child(3),
+    .cell:nth-child(6),
+    .cell:nth-child(9){
+        border-right: 3px solid black;
+       }
+    .cell:nth-child(3),
+    .cell:nth-child(6),
+    .cell:nth-child(9){
+        border-radius: 0px 10px 0px 0px;
+        /* topleft topright bottomright bottomleft */
+    }
+    .cell:nth-child(6){
+    
+        border-radius: 0px 0px 0px 0px;
+        /* topleft topright bottomright bottomleft */
+    }
+    .cell:nth-child(9){
+        border-radius: 0px 0px 10px 0px;
+        /* topleft topright bottomright bottomleft */
+    }
+    .cell:nth-child(7),
+    .cell:nth-child(8),
+    .cell:nth-child(9){
+        border-bottom: red;
+    }
+    .cell:nth-child(1),
+    .cell:nth-child(4),
+    .cell:nth-child(7){
+        border-radius: 10px 0px 0px 0px;
+        /* topleft topright bottomright bottomleft */
+    }
+    .cell:nth-child(4){
+        border-radius: 0px 0px 0px 0px;
+        /* topleft topright bottomright bottomleft */
+    }
+    .cell:nth-child(7){
+        border-radius: 0px 0px 0px 10px;
+        /* topleft topright bottomright bottomleft */
+    }
+    .cell:nth-child(2),
+    .cell:nth-child(5),
+    .cell:nth-child(8){
+        border-radius: 0px 0px 0px 0px;
+        /* topleft topright bottomright bottomleft */
+    }
+    
+    .cell.x::before,
+    .cell.x::after,
+    .board.x .cell:not(.x):not(.o):hover::before,
+    .board.x .cell:not(.x):not(.o):hover::after
+    {
+        content: '';
+        position: absolute;
+        width: 4vw;
+        height: 8vh;
+        background-color: red ;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px red;
+    }
+    .cell.x::before,
+    .board.x .cell:not(.x):not(.o):hover::before{
+        transform: rotate(45deg);
+    }
+    .cell.x::after,
+    .board.x .cell:not(.x):not(.o):hover::after{
+        transform: rotate(-45deg);
+    }
+    .board.x .cell:not(.x):not(.o):hover::before,
+    .board.x .cell:not(.x):not(.o):hover::after{
+        background-color:#680000 ;
+        box-shadow: unset;
+    }
+    .cell:hover{
+        background-color: 	#181818;
+    }
+    
+    .cell.o::before,
+    .board.o .cell:not(.x):not(.o):hover::before{
+        content: '';
+        position: absolute;
+        width: 10vw;
+        height: 7vh;
+        border-radius: 50%;
+        background-color: blue;
+        box-shadow: 0px 0px 15px blue;
+    }
+    .cell.o::after,
+    .board.o .cell:not(.x):not(.o):hover::after{
+        content: '';
+        position: absolute;
+        width: 5vw;
+        height: 5vh;
+        background-color: black;
+        border-radius: 50%;
+        box-shadow: 0px 0px 15px blue;
+    }
+    .board.o .cell:not(.x):not(.o):hover::before{
+        background-color: 	#0066CC;
+        box-shadow: unset;
+    }
+    .board.o .cell:not(.x):not(.o):hover::after{
+        background-color: 	#181818;
+        box-shadow: unset;
+    }
+    .winning-message{
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background-color: rgb(0,0,0,.9);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: blueviolet;
+        text-shadow: 0px 0px 15px blueviolet;
+        text-transform: uppercase;
+        cursor: pointer;
+        font-size: 2rem;
+        cursor:auto;
+        text-align: center;
+    }
+    .winning-message button{
+        color: rgb(0,0,0,.9);
+        text-shadow: 0px 0px 15px blueviolet;
+        background-color: blueviolet;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight:700;
+        padding:15px 30px;
+        border: 2px solid blueviolet;
+    }
+    .winning-message button:hover{
+        color:blueviolet;
+        background-color: transparent;
+        cursor:pointer;
+    }
+    .winning-message.show{
+        display: flex;
+    }
+    .O{
+        color: white;
+        text-shadow: 0px 0px 15px pink;
+        font-size: 3rem;
+    }
+    .X{
+        color: red;
+        text-shadow: 0px 0px 15px red;
+        font-size: 3rem;
+    }
+}
